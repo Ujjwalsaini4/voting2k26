@@ -13,21 +13,34 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const functions = getFunctions(app);
-const analytics = typeof window !== 'undefined' ? getAnalytics(app) : null;
+// Safe initialization with check for keys
+let app, auth, db, functions, analytics;
+
+const hasConfig = !!import.meta.env.VITE_FIREBASE_API_KEY;
+
+if (hasConfig) {
+  try {
+    app = initializeApp(firebaseConfig);
+    auth = getAuth(app);
+    db = getFirestore(app);
+    functions = getFunctions(app);
+    analytics = typeof window !== 'undefined' ? getAnalytics(app) : null;
+  } catch (error) {
+    console.error("Firebase initialization failed:", error);
+  }
+} else {
+  console.warn("Firebase config missing. Features like AI assistant and analytics will be disabled.");
+}
 
 // Helper to sign in anonymously
 export const loginAnonymously = async () => {
+  if (!auth) return null;
   try {
     const userCredential = await signInAnonymously(auth);
     return userCredential.user;
   } catch (error) {
     console.error("Firebase Anonymous Auth Error:", error);
-    throw error;
+    return null;
   }
 };
 
