@@ -1,5 +1,5 @@
 import { useEffect, lazy, Suspense } from 'react';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { loginAnonymously } from './utils/firebase';
 
 import Navigation from './components/layout/Navigation';
