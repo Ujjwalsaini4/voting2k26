@@ -1,4 +1,5 @@
 import { Megaphone, FileSignature, Users, CheckSquare, BarChart, Trophy } from 'lucide-react';
+import SectionHeader from '../ui/SectionHeader';
 
 function Timeline() {
   const phases = [
@@ -42,24 +43,24 @@ function Timeline() {
 
   return (
     <div>
-      <div className="text-center" style={{ marginBottom: 'var(--spacing-8)' }}>
-        <h1 style={{ color: 'var(--color-primary)', marginBottom: 'var(--spacing-2)' }}>Election Timeline</h1>
-        <p className="color-text-muted">Understanding the phases of Indian elections, step-by-step.</p>
-      </div>
+      <SectionHeader 
+        title="Election Timeline" 
+        subtitle="Understanding the phases of Indian elections, step-by-step." 
+      />
 
-      <div className="timeline-container">
+      <ol className="timeline-container" aria-label="Election Process Phases">
         {phases.map((phase) => (
-          <div key={phase.id} className="timeline-item">
-            <div className="timeline-icon">
+          <li key={phase.id} className="timeline-item">
+            <div className="timeline-icon" aria-hidden="true">
               {phase.icon}
             </div>
             <div className="timeline-content">
               <h3>{phase.title}</h3>
               <p>{phase.description}</p>
             </div>
-          </div>
+          </li>
         ))}
-      </div>
+      </ol>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import SectionHeader from '../ui/SectionHeader';
 
 function FAQ() {
   const faqs = [
@@ -38,10 +39,10 @@ function FAQ() {
 
   return (
     <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-      <div className="text-center" style={{ marginBottom: 'var(--spacing-8)' }}>
-        <h1 style={{ color: 'var(--color-primary)', marginBottom: 'var(--spacing-2)' }}>Frequently Asked Questions</h1>
-        <p className="color-text-muted">Clear answers to the most common questions about the Indian election process.</p>
-      </div>
+      <SectionHeader 
+        title="Frequently Asked Questions" 
+        subtitle="Clear answers to the most common questions about the Indian election process." 
+      />
 
       <div>
         {faqs.map((faq) => (
@@ -49,12 +50,20 @@ function FAQ() {
             <button 
               className="faq-question" 
               onClick={() => toggleFaq(faq.id)}
+              aria-expanded={openId === faq.id}
+              aria-controls={`faq-answer-${faq.id}`}
+              id={`faq-question-${faq.id}`}
             >
               {faq.question}
-              {openId === faq.id ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+              {openId === faq.id ? <ChevronUp size={20} aria-hidden="true" /> : <ChevronDown size={20} aria-hidden="true" />}
             </button>
             {openId === faq.id && (
-              <div className="faq-answer animate-fade-in">
+              <div 
+                className="faq-answer animate-fade-in" 
+                id={`faq-answer-${faq.id}`}
+                role="region"
+                aria-labelledby={`faq-question-${faq.id}`}
+              >
                 <p>{faq.answer}</p>
               </div>
             )}

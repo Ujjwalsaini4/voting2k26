@@ -9,7 +9,7 @@
   --color-background-secondary: #f1f5f9;
   --color-surface: #ffffff;
   --color-text: #0f172a;
-  --color-text-muted: #64748b;
+  --color-text-muted: #475569; /* Darkened for better contrast (4.5:1+) */
   --color-border: #e2e8f0;
 
   /* Spacing */
@@ -77,6 +77,33 @@ button {
   cursor: pointer;
   font-family: inherit;
   color: inherit;
+}
+
+/* Accessibility: Skip Link */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--color-primary);
+  color: white;
+  padding: 8px;
+  z-index: 100;
+  transition: top 0.2s;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Accessibility: Keyboard Focus States */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+  border-radius: var(--radius-md);
+}
+
+.btn-primary:focus-visible, .btn-outline:focus-visible, .nav-link:focus-visible, .chat-send-btn:focus-visible {
+  outline-offset: 2px;
 }
 
 /* Utilities */

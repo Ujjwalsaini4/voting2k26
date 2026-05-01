@@ -1,4 +1,6 @@
 import { FileText, CheckCircle, MapPin, Pointer } from 'lucide-react';
+import SectionHeader from '../ui/SectionHeader';
+import Card from '../ui/Card';
 
 function VotingGuide() {
   const steps = [
@@ -30,27 +32,27 @@ function VotingGuide() {
 
   return (
     <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-      <div className="text-center" style={{ marginBottom: 'var(--spacing-8)' }}>
-        <h1 style={{ color: 'var(--color-primary)', marginBottom: 'var(--spacing-2)' }}>How to Vote</h1>
-        <p className="color-text-muted">A simple step-by-step guide for Indian citizens.</p>
-      </div>
+      <SectionHeader 
+        title="How to Vote" 
+        subtitle="A simple step-by-step guide for Indian citizens." 
+      />
 
       <div className="guide-grid">
         {steps.map((step) => (
-          <div key={step.id} className="card guide-step">
-            <div className="step-number">{step.id}</div>
+          <Card key={step.id} className="guide-step" ariaLabel={`Step ${step.id}: ${step.title}`}>
+            <div className="step-number" aria-hidden="true">{step.id}</div>
             <div>
               <div className="guide-header">
-                {step.icon}
-                <h3 style={{ margin: 0, fontSize: '1.25rem' }}>{step.title}</h3>
+                <div aria-hidden="true">{step.icon}</div>
+                <h3 id={`step-title-${step.id}`} style={{ margin: 0, fontSize: '1.25rem' }}>{step.title}</h3>
               </div>
               <p style={{ color: 'var(--color-text-muted)', lineHeight: '1.6' }}>{step.description}</p>
             </div>
-          </div>
+          </Card>
         ))}
       </div>
 
-      <div className="card" style={{ marginTop: 'var(--spacing-8)', backgroundColor: 'var(--color-primary-light)', borderColor: 'var(--color-primary-light)' }}>
+      <Card style={{ marginTop: 'var(--spacing-8)', backgroundColor: 'var(--color-primary-light)', borderColor: 'var(--color-primary-light)' }}>
         <h3 style={{ color: 'var(--color-primary)', marginBottom: 'var(--spacing-2)' }}>What ID should I bring?</h3>
         <p style={{ marginBottom: 'var(--spacing-2)' }}>You must bring your Voter ID (EPIC) card. If you don't have it, you can bring one of the alternative photo ID documents approved by the ECI, such as:</p>
         <ul style={{ marginLeft: '1.5rem', color: 'var(--color-text-muted)' }}>
@@ -59,7 +61,7 @@ function VotingGuide() {
           <li>Driving License</li>
           <li>Indian Passport</li>
         </ul>
-      </div>
+      </Card>
     </div>
   );
 }
